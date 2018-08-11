@@ -1,0 +1,37 @@
+package com.mvn.prodcons;
+
+/**
+ * Created by shekhar on 07-08-2018.
+ */
+public class Test {
+    public static void main(String[] args) throws InterruptedException {
+
+        PC pc =  new PC();
+
+        Thread t1 = new Thread(() -> {
+            try{
+                pc.produce();
+            }catch (InterruptedException e){
+                System.out.print("Producer Error");
+            }
+
+        });
+
+        Thread t2 = new Thread(() ->  {
+            try{
+                pc.consume();
+            }catch (InterruptedException e){
+                System.out.print("Consumer Error");
+            }
+        });
+
+        t1.start();
+        t2.start();
+
+        t1.join();
+        t2.join();
+
+    }
+
+
+}
